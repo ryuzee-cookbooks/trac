@@ -1,4 +1,2 @@
-.bundle
-.cache
+Berksfile.lock
 .kitchen
-bin
