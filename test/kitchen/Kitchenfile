@@ -1,0 +1,12 @@
+# vim: ft=ruby
+
+platform :centos do
+  version "6.2" do
+    box "centos_62_x86_64_ja"
+    box_url "https://dl.dropbox.com/u/428597/vagrant_boxes/centos_62_x86_64_ja.box"
+  end
+end
+
+cookbook "trac" do
+  exclude :platform => 'ubuntu'
+end
