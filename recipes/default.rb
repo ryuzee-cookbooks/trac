@@ -22,7 +22,7 @@
 case node["platform"]
 when "centos", "redhat", "amazon", "scientific"
 
-  include_recipe "apache_mysql_php"
+  include_recipe "apache2"
 
   %w{python-setuptools mod_wsgi subversion mod_dav_svn}.each do |package_name|
     package package_name do
