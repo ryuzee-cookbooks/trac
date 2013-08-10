@@ -214,6 +214,7 @@ password_store = HtPasswdStore
 htpasswd_file = <%= node["trac"]["password_file"] %>
 
 [components]
+tracopt.versioncontrol.svn.* = enabled
 webadmin.* = enabled
 trac.web.auth.loginmodule = disabled
 acct_mgr.admin.* = enabled
