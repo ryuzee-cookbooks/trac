@@ -20,7 +20,7 @@
 #
 
 case node["platform"]
-when "centos", "redhat", "amazon", "scientific"
+when "centos", "redhat", "amazon", "scientific", "fedora"
 
   include_recipe "apache2"
 
