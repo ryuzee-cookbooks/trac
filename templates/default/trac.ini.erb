@@ -212,6 +212,7 @@ split_page_names = false
 password_format = htpasswd
 password_store = HtPasswdStore
 htpasswd_file = <%= node["trac"]["password_file"] %>
+htpasswd_hash_type =
 
 [components]
 tracopt.versioncontrol.svn.* = enabled
