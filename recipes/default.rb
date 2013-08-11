@@ -47,6 +47,7 @@ when "centos", "redhat", "amazon", "scientific", "fedora"
     end
     easy_install_package "Genshi" do
       action :install
+      provider Chef::Provider::Package::EasyInstall
       source "#{Chef::Config[:file_cache_path]}/Genshi-0.6-py2.4.egg"
     end
   else
