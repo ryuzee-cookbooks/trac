@@ -41,10 +41,17 @@ when "centos", "redhat", "amazon", "scientific", "fedora"
     end
   end
 
-  easy_install_package "Genshi" do
-    action :install
-    if node["platform"] =="centos" && node["platform_version"][0] == "5"
-      version "0.6" 
+  if node["platform"] =="centos" && node["platform_version"][0] == "5"
+    remote_file "#{Chef::Config[:file_cache_path]}/Genshi-0.6-py2.4.egg" do
+      source "http://ftp.edgewall.com/pub/genshi/Genshi-0.6-py2.4.egg"
+    end
+    easy_install_package "Genshi" do
+      action :install
+      source "#{Chef::Config[:file_cache_path]}/Genshi-0.6-py2.4.egg"
+    end
+  else
+    easy_install_package "Genshi" do
+      action :install
     end
   end
 
