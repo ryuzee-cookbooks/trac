@@ -45,10 +45,8 @@ when "centos", "redhat", "amazon", "scientific", "fedora"
     remote_file "#{Chef::Config[:file_cache_path]}/Genshi-0.6-py2.4.egg" do
       source "http://ftp.edgewall.com/pub/genshi/Genshi-0.6-py2.4.egg"
     end
-    easy_install_package "Genshi" do
-      action :install
-      provider Chef::Provider::Package::EasyInstall
-      source "#{Chef::Config[:file_cache_path]}/Genshi-0.6-py2.4.egg"
+    execute "easy_install #{Chef::Config[:file_cache_path]}/Genshi-0.6-py2.4.egg" do
+      action :run
     end
   else
     easy_install_package "Genshi" do
