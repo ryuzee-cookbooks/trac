@@ -35,9 +35,16 @@ when "centos", "redhat", "amazon", "scientific", "fedora"
     only_if {node["platform"] == "amazon"}
   end
 
-  %w{Genshi Babel}.each do |package_name|
+  %w{Babel}.each do |package_name|
     easy_install_package package_name do
       action :install
+    end
+  end
+
+  easy_install_package "Genshi" do
+    action :install
+    if node["platform"] =="centos" && node["platform_version"][0] == "5"
+      version "0.6" 
     end
   end
 
