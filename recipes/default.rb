@@ -42,11 +42,17 @@ when "centos", "redhat", "amazon", "scientific", "fedora"
   end
 
   if node["platform"] =="centos" && node["platform_version"][0] == "5"
-    remote_file "#{Chef::Config[:file_cache_path]}/Genshi-0.6-py2.4.egg" do
-      source "http://ftp.edgewall.com/pub/genshi/Genshi-0.6-py2.4.egg"
+    remote_file "#{Chef::Config[:file_cache_path]}/Genshi-0.6.1.tar.gz" do
+      source "http://ftp.edgewall.com/pub/genshi/Genshi-0.6.1.tar.gz"
+      mode "0644"
     end
-    execute "easy_install #{Chef::Config[:file_cache_path]}/Genshi-0.6-py2.4.egg" do
-      action :run
+    bash "build-and-install-kakasi" do
+      cwd Chef::Config[:file_cache_path]
+      code <<-EOF
+        tar xvfz Genshi-0.6.1.tar.gz && 
+        cd Genshi-0.6.1 && 
+        python setup.py install
+      EOF
     end
   else
     easy_install_package "Genshi" do
@@ -166,6 +172,10 @@ when "centos", "redhat", "amazon", "scientific", "fedora"
     group "apache"
     mode "0644"
     not_if "cat #{node["trac"]["trac_root_dir"]}/#{node["trac"]["project_name"]}/conf/trac.ini | grep password_format"
+  end
+
+  service "httpd" do
+    action [:restart]
   end
 
 end
