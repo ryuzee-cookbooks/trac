@@ -10,9 +10,9 @@
 # http://opensource.org/licenses/mit-license.php
 
 case node["platform"]
-when "centos", "redhat", "amazon", "scientific"
+when "centos", "redhat", "amazon", "scientific", "fedora"
 
-  include_recipe "apache_mysql_php"
+  include_recipe "apache2"
 
   %w{python-setuptools mod_wsgi subversion mod_dav_svn}.each do |package_name|
     package package_name do
@@ -25,8 +25,27 @@ when "centos", "redhat", "amazon", "scientific"
     only_if {node["platform"] == "amazon"}
   end
 
-  %w{Genshi Babel}.each do |package_name|
+  %w{Babel}.each do |package_name|
     easy_install_package package_name do
+      action :install
+    end
+  end
+
+  if node["platform"] =="centos" && node["platform_version"][0] == "5"
+    remote_file "#{Chef::Config[:file_cache_path]}/Genshi-0.6.1.tar.gz" do
+      source "http://ftp.edgewall.com/pub/genshi/Genshi-0.6.1.tar.gz"
+      mode "0644"
+    end
+    bash "build-and-install-kakasi" do
+      cwd Chef::Config[:file_cache_path]
+      code <<-EOF
+        tar xvfz Genshi-0.6.1.tar.gz && 
+        cd Genshi-0.6.1 && 
+        python setup.py install
+      EOF
+    end
+  else
+    easy_install_package "Genshi" do
       action :install
     end
   end
@@ -143,6 +162,10 @@ when "centos", "redhat", "amazon", "scientific"
     group "apache"
     mode "0644"
     not_if "cat #{node["trac"]["trac_root_dir"]}/#{node["trac"]["project_name"]}/conf/trac.ini | grep password_format"
+  end
+
+  service "httpd" do
+    action [:restart]
   end
 
 end

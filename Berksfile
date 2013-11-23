@@ -2,4 +2,4 @@ site :opscode
 
 metadata
 
-cookbook 'apache_mysql_php', git: 'git://github.com/ryuzee-cookbooks/apache_mysql_php.git'
+cookbook 'apache2', git: 'git://github.com/ryuzee-cookbooks/apache2.git'
