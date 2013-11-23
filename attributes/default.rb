@@ -4,3 +4,5 @@ default["trac"]["svn_repository_root_dir"] = "/opt/svn"
 default["trac"]["password_file"] = "/opt/trac_svn_password"
 default["trac"]["admin_account"] = "admin"
 default["trac"]["admin_password"] = "ADMIN"
+
+# vim: filetype=ruby.chef
