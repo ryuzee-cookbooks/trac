@@ -25,10 +25,10 @@ when "centos", "redhat", "amazon", "scientific", "fedora"
     only_if {node["platform"] == "amazon"}
   end
 
-  %w{Babel}.each do |package_name|
-    easy_install_package package_name do
-      action :install
-    end
+  ## work around https://issues.apache.org/bloodhound/wiki/BloodhoundInstallTroubleshooting
+  easy_install_package "Babel" do
+    action :install
+    version "0.9.6"
   end
 
   if node["platform"] =="centos" && node["platform_version"][0] == "5"
@@ -36,7 +36,7 @@ when "centos", "redhat", "amazon", "scientific", "fedora"
       source "http://ftp.edgewall.com/pub/genshi/Genshi-0.6.1.tar.gz"
       mode "0644"
     end
-    bash "build-and-install-kakasi" do
+    bash "build-and-install-genshi" do
       cwd Chef::Config[:file_cache_path]
       code <<-EOF
         tar xvfz Genshi-0.6.1.tar.gz && 
