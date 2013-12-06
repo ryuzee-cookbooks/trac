@@ -97,7 +97,7 @@ when "centos", "redhat", "amazon", "scientific", "fedora"
   e = execute "trac-admin #{node["trac"]["trac_root_dir"]}/#{node["trac"]["project_name"]} initenv #{node["trac"]["project_name"]} sqlite:db/trac.db svn #{node["trac"]["svn_repository_root_dir"]}/#{node["trac"]["project_name"]}" do
     action :run
     not_if do File.exists?("#{node["trac"]["trac_root_dir"]}/#{node["trac"]["project_name"]}/conf/trac.ini") end
-    environment: ({"LANG" => node["trac"]["lang"]})
+    environment ({"LANG" => node["trac"]["lang"]})
   end
 
   ## deploy trac wsgi
