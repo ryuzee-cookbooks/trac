@@ -4,3 +4,4 @@ gem 'kitchen-vagrant', :group => :integration
 gem 'berkshelf'
 gem 'minitest'
 gem 'minitest-chef-handler'
+gem 'kitchen-docker'
