@@ -152,7 +152,7 @@ when "centos", "redhat", "amazon", "scientific", "fedora"
     not_if "trac-admin #{node["trac"]["trac_root_dir"]}/#{node["trac"]["project_name"]} permission list | grep #{node["trac"]["admin_account"]}"
   end
 
-  e = execute "easy_install http://trac-hacks.org/svn/accountmanagerplugin/trunk" do
+  e = execute "easy_install https://trac-hacks.org/svn/accountmanagerplugin/trunk" do
     action :run
     not_if "python -c 'import sys; from pkg_resources import get_distribution; get_distribution(sys.argv[1])' TracAccountManager 2>/dev/null"
   end
